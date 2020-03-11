@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云瑞留言板</title>
+</head>
+<body>
+{% extends 'base.html'%}
+
+{%block content %}
+<br/>
+
+    <h1>提交留言功能区</h1>
+    <form action="/msggate/" method="POST">
+        {% csrf_token %}
+        发送方 <input type="text" name="ur1" value="" /> <br>
+        接收方 <input type="text" name="ur2" value="" /> <br>
+        消息文 <input type="text" name="msg" value="msg" /> <br>
+        <br>
+        <input type="submit" value="提交留言" />
+    </form>
+    <h1>获取留言功能区</h1>
+    <form action="/msggate/" method="GET">
+        接收方 <input type="text" name="ur3" value="" /> <br>
+        <br>
+        <input type="submit" value="留言获取" />
+    </form>
+    <table border="1">
+        <thead>
+            <th>留言时间</th>
+            <th>留言来源</th>
+            <th>留言信息</th>
+        </theadd>
+        <br>
+        <tbody>
+            {% for line in data_g %}
+            <tr>
+                <td>{{ line.time }}</td>
+                <td align="center">{{ line.ur1 }}</td>
+                <td>{{ line.msg }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{%endblock%}
+</body>
+</html>
